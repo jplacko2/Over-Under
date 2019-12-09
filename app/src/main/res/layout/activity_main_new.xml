@@ -21,16 +21,17 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="287dp"
-        android:layout_height="195dp"
+        android:layout_width="381dp"
+        android:layout_height="189dp"
         android:layout_marginTop="112dp"
         android:text="Over- Under"
         android:textColor="#000000"
         android:textColorHighlight="#CB3F94B5"
-        android:textSize="84sp"
+        android:textSize="68sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />

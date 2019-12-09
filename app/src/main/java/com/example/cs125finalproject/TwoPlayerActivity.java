@@ -24,9 +24,15 @@ public class TwoPlayerActivity extends AppCompatActivity {
     private ImageView die6;
     private ImageView[] diceArray;
     private Spinner playerGuess;
-    private int compareValue;
+    private double compareValue;
     private TextView compareValueText;
     private int rollValue;
+    private int playerOneScore;
+    private int playerTwoScore;
+    private int playerNum;
+    private TextView playerOneUpdateScore;
+    private TextView playerTwoUpdateScore;
+    private ImageView winner;
 
 
     protected void onCreate(Bundle savedInstanceStats) {
@@ -39,9 +45,10 @@ public class TwoPlayerActivity extends AppCompatActivity {
         die4 = findViewById(R.id.diceView3);
         die5 = findViewById(R.id.diceView4);
         die6 = findViewById(R.id.diceView5);
-
+        playerNum = 0;
+        final TextView whichPlayer = findViewById(R.id.playerNumberText);
+        whichPlayer.setText("Player 1");
         diceArray = new ImageView[]{die1, die2, die3, die4, die5, die6};
-
         playerGuess = findViewById(R.id.playerResponseSpinner);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_expandable_list_item_1, getResources().getStringArray(R.array.game_choices));
@@ -49,15 +56,75 @@ public class TwoPlayerActivity extends AppCompatActivity {
         playerGuess.setAdapter(spinnerAdapter);
         compareValueText = findViewById(R.id.numToCompare);
         compareValue = getRandomCompareValue();
-        compareValueText.setText(Integer.toString(compareValue));
+        compareValueText.setText(Integer.toString((int) compareValue));
+        playerOneUpdateScore = findViewById(R.id.playerScore);
+        playerTwoUpdateScore = findViewById(R.id.playerScore2);
+        winner = findViewById(R.id.winner);
+        winner.setVisibility(View.GONE);
         Button roll = findViewById(R.id.roll);
         roll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 rollValue = rollSix();
+                if (playerNum % 2 == 0) {
+                    playerOneScore += playerPointsWon();
+                    playerOneUpdateScore.setText("Player 1's Score: " + playerOneScore);
+                    whichPlayer.setText("Player 2");
+                } else {
+                    playerTwoScore += playerPointsWon();
+                    playerTwoUpdateScore.setText("Player 2's Score: " + playerTwoScore);
+                    whichPlayer.setText("Player 1");
+                }
+                playerNum++;
+                compareValue = getRandomCompareValue();
+                compareValueText.setText(Integer.toString((int) compareValue));
+                if (playerOneScore >= 200 && playerTwoScore >= 200) {
+                    if (playerOneScore > playerTwoScore) {
+                        for (ImageView eachDie : diceArray) {
+                            eachDie.setVisibility(View.GONE);
+                        }
+                        winner.setImageResource(R.drawable.player1wins);
+                        winner.setVisibility(View.VISIBLE);
+                    } else {
+                        for (ImageView eachDie : diceArray) {
+                            eachDie.setVisibility(View.GONE);
+                        }
+                        winner.setImageResource(R.drawable.player2wins);
+                        winner.setVisibility(View.VISIBLE);
+                    }
+                } else if (playerOneScore >= 200) {
+                    for (ImageView eachDie : diceArray) {
+                        eachDie.setVisibility(View.GONE);
+                    }
+                    winner.setImageResource(R.drawable.player1wins);
+                    winner.setVisibility(View.VISIBLE);
+                } else if (playerTwoScore >= 200){
+                    for (ImageView eachDie : diceArray) {
+                        eachDie.setVisibility(View.GONE);
+                    }
+                    winner.setImageResource(R.drawable.player2wins);
+                    winner.setVisibility(View.VISIBLE);
+                }
             }
         });
-
+        Button reset = findViewById(R.id.resetButton);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playerOneScore = 0;
+                playerOneUpdateScore.setText("Player 1's Score: " + playerOneScore);
+                playerTwoScore = 0;
+                playerTwoUpdateScore.setText("Player 2's Score: " + playerTwoScore);
+                playerNum = 0;
+                whichPlayer.setText("Player 1");
+                compareValue = getRandomCompareValue();
+                compareValueText.setText(Integer.toString((int) compareValue));
+                for (ImageView eachDie : diceArray) {
+                    eachDie.setVisibility(View.VISIBLE);
+                }
+                winner.setVisibility(View.GONE);
+            }
+        });
     }
     private int roll(ImageView diceView) {
         int random = rng.nextInt(6) + 1;
@@ -92,11 +159,8 @@ public class TwoPlayerActivity extends AppCompatActivity {
     private int getRandomCompareValue() {
         return rng.nextInt(27) + 8;
     }
-    private void updateUI() {
-
-    }
-    private int playerPointsWon() {
-        int points = 0;
+    private double playerPointsWon() {
+        double points = 0;
         String playerChoice = playerGuess.getSelectedItem().toString();
         if (playerChoice.equals("Equal") && rollValue == compareValue) {
             points = 75;
@@ -108,6 +172,8 @@ public class TwoPlayerActivity extends AppCompatActivity {
             points = compareValue;
         } else if (playerChoice.equals("Much Larger") && rollValue > compareValue + ((compareValue - 6) / 2)) {
             points = compareValue * 2;
+        } else {
+            points = 0;
         }
         return points;
     }
