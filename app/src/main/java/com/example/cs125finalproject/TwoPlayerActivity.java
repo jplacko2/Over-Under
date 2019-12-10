@@ -1,6 +1,5 @@
 package com.example.cs125finalproject;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -12,7 +11,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Bundle;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -235,6 +233,5 @@ public class TwoPlayerActivity extends AppCompatActivity implements SensorEventL
             winner.setImageResource(R.drawable.player2wins);
             winner.setVisibility(View.VISIBLE);
         }
-        //onResume();
     }
 }
