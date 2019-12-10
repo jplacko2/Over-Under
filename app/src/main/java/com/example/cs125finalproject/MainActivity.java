@@ -1,6 +1,10 @@
 package com.example.cs125finalproject;
 
 import android.content.Intent;
+/*import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;*/
 import android.os.Bundle;
 import android.view.View;
 
@@ -22,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private final int defaultNumSides = 6;
     private final int defaultNumDice = 1;*/
     private Button playButton;
+    //private SensorManager mSensorManager;
+    //private Sensor mAccelerometer;
+    //private static final double ACCELERATION_THRESHOLD = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +41,40 @@ public class MainActivity extends AppCompatActivity {
                 startActivityButton();
             }
         });
+        //mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        //mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
     }
     private void startActivityButton() {
         Intent intent = new Intent(this, TwoPlayerActivity.class);
         startActivity(intent);
     }
+    /*
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        if (sensorEvent.sensor == mAccelerometer) {
+            float[] accelValues = sensorEvent.values;
+            double totalAcc = Math.sqrt(accelValues[0]*accelValues[0]
+                    + accelValues[1]*accelValues[1] + accelValues[2]*accelValues[2]);
+            if (totalAcc > ACCELERATION_THRESHOLD) {
+                //do the thing
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+        return;
+    }
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
+    */
     //diceView = findViewById(R.id.diceView);
         /*diceView.setOnClickListener(new View.OnClickListener() {
             @Override

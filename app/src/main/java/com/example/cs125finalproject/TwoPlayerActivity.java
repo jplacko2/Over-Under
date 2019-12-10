@@ -8,12 +8,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Random;
 
-public class TwoPlayerActivity extends AppCompatActivity {
+public class TwoPlayerActivity extends AppCompatActivity implements SensorEventListener {
 
     private Random rng = new Random();
     private ImageView die1;
@@ -33,12 +39,16 @@ public class TwoPlayerActivity extends AppCompatActivity {
     private TextView playerOneUpdateScore;
     private TextView playerTwoUpdateScore;
     private ImageView winner;
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private static final double ACCELERATION_THRESHOLD = 5;
 
 
     protected void onCreate(Bundle savedInstanceStats) {
         super.onCreate(savedInstanceStats);
         setContentView(R.layout.activity_two_player);
-
+        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         die1 = findViewById(R.id.diceView);
         die2 = findViewById(R.id.diceView1);
         die3 = findViewById(R.id.diceView2);
@@ -176,5 +186,32 @@ public class TwoPlayerActivity extends AppCompatActivity {
             points = 0;
         }
         return points;
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        if (sensorEvent.sensor == mAccelerometer) {
+            float[] accelValues = sensorEvent.values;
+            double totalAcc = Math.sqrt(accelValues[0]*accelValues[0]
+                    + accelValues[1]*accelValues[1] + accelValues[2]*accelValues[2]);
+            if (totalAcc > ACCELERATION_THRESHOLD) {
+                //do the thing
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+        return;
+    }
+
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
     }
 }
