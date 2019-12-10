@@ -5,7 +5,7 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3F51B5">
+    android:background="#B5643F">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -40,7 +40,7 @@
         android:id="@+id/playButton"
         android:layout_width="227dp"
         android:layout_height="96dp"
-        android:background="#EE009689"
+        android:background="#40960000"
         android:text="PLAY"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
