@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameRules">
+
+    <Button
+        android:id="@+id/confirmation"
+        android:layout_width="286dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="32dp"
+        android:text="Got it"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="339dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:text="Welcome to Over-Under!"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="260dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Here are some rules to get you started"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/rule1"
+        android:layout_width="318dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="36dp"
+        android:text="- Player one and player 2 will roll, either by shaking or pressing the roll button, on alternate turns"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.319"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subtitle" />
+
+    <TextView
+        android:id="@+id/rule2"
+        android:layout_width="317dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="20dp"
+        android:text='- The numer displayed next to "Your number is: " is the over/under for you to predict. This number ranges between 8 and 34'
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rule1" />
+
+    <TextView
+        android:id="@+id/rule3"
+        android:layout_width="317dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="20dp"
+        android:text='- "much higher" and "much lower" refer to the extreme 50% on either side of the target number'
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.322"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rule2" />
+
+    <TextView
+        android:id="@+id/rule4"
+        android:layout_width="318dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="20dp"
+        android:text="- If you guess equal, you will get 75 points and if you guess other options correctly you will get points inversely proportional to the probability of outcome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.322"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rule3" />
+
+    <TextView
+        android:id="@+id/rule5"
+        android:layout_width="317dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="20dp"
+        android:text="- First player to 200 wins"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.319"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rule4" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

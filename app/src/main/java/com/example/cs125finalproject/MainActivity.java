@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         //mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
     }
     private void startActivityButton() {
-        Intent intent = new Intent(this, TwoPlayerActivity.class);
+        Intent intent = new Intent(this, GameRules.class);
         startActivity(intent);
     }
     /*
