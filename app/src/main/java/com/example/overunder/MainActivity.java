@@ -1,4 +1,4 @@
-package com.example.cs125finalproject;
+package com.example.overunder;
 
 import android.content.Intent;
 /*import android.hardware.Sensor;
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_new);
+        setContentView(R.layout.activity_main);
         playButton = findViewById(R.id.playButton);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void startActivityButton() {
-        Intent intent = new Intent(this, GameRules.class);
+        Intent intent = new Intent(this, com.example.overunder.GameRules.class);
         startActivity(intent);
     }
 }

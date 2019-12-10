@@ -1,10 +1,11 @@
 <resources>
-    <string name="app_name">CS125FinalProject</string>
+    <string name="app_name">OverUnder</string>
+    <string name="OverUnder">Over-Under</string>
     <string-array name="game_choices">
         <item>Much Smaller</item>
         <item>Smaller</item>
         <item>Equal</item>
         <item>Larger</item>
         <item>Much Larger</item>
-    </string-array>
+</string-array>
 </resources>

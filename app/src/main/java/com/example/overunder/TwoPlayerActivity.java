@@ -1,4 +1,4 @@
-package com.example.cs125finalproject;
+package com.example.overunder;
 
 import android.os.Bundle;
 import android.view.View;
@@ -75,8 +75,8 @@ public class TwoPlayerActivity extends AppCompatActivity implements SensorEventL
             @Override
             public void onClick(View view) {
                 rollButton();
-                }
-            });
+            }
+        });
         Button reset = findViewById(R.id.resetButton);
         reset.setOnClickListener(new View.OnClickListener() {
             @Override

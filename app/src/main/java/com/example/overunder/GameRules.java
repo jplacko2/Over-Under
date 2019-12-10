@@ -1,4 +1,4 @@
-package com.example.cs125finalproject;
+package com.example.overunder;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class GameRules extends AppCompatActivity {
-
 
     private TextView title, subtitle, rule1, rule2, rule3, rule4, rule5;
     private Button confirmation;
