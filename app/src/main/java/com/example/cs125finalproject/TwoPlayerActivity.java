@@ -41,7 +41,8 @@ public class TwoPlayerActivity extends AppCompatActivity implements SensorEventL
     private ImageView winner;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
-    private static final double ACCELERATION_THRESHOLD = 5;
+    private static final double ACCELERATION_THRESHOLD = 7;
+    private TextView whichPlayer;
 
 
     protected void onCreate(Bundle savedInstanceStats) {
@@ -56,7 +57,7 @@ public class TwoPlayerActivity extends AppCompatActivity implements SensorEventL
         die5 = findViewById(R.id.diceView4);
         die6 = findViewById(R.id.diceView5);
         playerNum = 0;
-        final TextView whichPlayer = findViewById(R.id.playerNumberText);
+        whichPlayer = findViewById(R.id.playerNumberText);
         whichPlayer.setText("Player 1");
         diceArray = new ImageView[]{die1, die2, die3, die4, die5, die6};
         playerGuess = findViewById(R.id.playerResponseSpinner);
@@ -75,48 +76,9 @@ public class TwoPlayerActivity extends AppCompatActivity implements SensorEventL
         roll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rollValue = rollSix();
-                if (playerNum % 2 == 0) {
-                    playerOneScore += playerPointsWon();
-                    playerOneUpdateScore.setText("Player 1's Score: " + playerOneScore);
-                    whichPlayer.setText("Player 2");
-                } else {
-                    playerTwoScore += playerPointsWon();
-                    playerTwoUpdateScore.setText("Player 2's Score: " + playerTwoScore);
-                    whichPlayer.setText("Player 1");
+                rollButton();
                 }
-                playerNum++;
-                compareValue = getRandomCompareValue();
-                compareValueText.setText(Integer.toString((int) compareValue));
-                if (playerOneScore >= 200 && playerTwoScore >= 200) {
-                    if (playerOneScore > playerTwoScore) {
-                        for (ImageView eachDie : diceArray) {
-                            eachDie.setVisibility(View.GONE);
-                        }
-                        winner.setImageResource(R.drawable.player1wins);
-                        winner.setVisibility(View.VISIBLE);
-                    } else {
-                        for (ImageView eachDie : diceArray) {
-                            eachDie.setVisibility(View.GONE);
-                        }
-                        winner.setImageResource(R.drawable.player2wins);
-                        winner.setVisibility(View.VISIBLE);
-                    }
-                } else if (playerOneScore >= 200) {
-                    for (ImageView eachDie : diceArray) {
-                        eachDie.setVisibility(View.GONE);
-                    }
-                    winner.setImageResource(R.drawable.player1wins);
-                    winner.setVisibility(View.VISIBLE);
-                } else if (playerTwoScore >= 200){
-                    for (ImageView eachDie : diceArray) {
-                        eachDie.setVisibility(View.GONE);
-                    }
-                    winner.setImageResource(R.drawable.player2wins);
-                    winner.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+            });
         Button reset = findViewById(R.id.resetButton);
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +150,9 @@ public class TwoPlayerActivity extends AppCompatActivity implements SensorEventL
         return points;
     }
 
+    private long startTime = 0;
+    private static final long MIN_MILLISECONDS_DELAY = 800;
+
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor == mAccelerometer) {
@@ -195,7 +160,15 @@ public class TwoPlayerActivity extends AppCompatActivity implements SensorEventL
             double totalAcc = Math.sqrt(accelValues[0]*accelValues[0]
                     + accelValues[1]*accelValues[1] + accelValues[2]*accelValues[2]);
             if (totalAcc > ACCELERATION_THRESHOLD) {
-                //do the thing
+
+                long currentTime = System.currentTimeMillis();
+
+                if(currentTime - startTime > MIN_MILLISECONDS_DELAY) {
+                    rollButton();
+                }
+
+                startTime = System.currentTimeMillis();
+
             }
         }
     }
@@ -213,5 +186,55 @@ public class TwoPlayerActivity extends AppCompatActivity implements SensorEventL
     protected void onPause() {
         super.onPause();
         mSensorManager.unregisterListener(this);
+        int x = 0;
+        while (x < 1000000000) {
+            for (int i = 0; i < 1000; i++) {
+                x = x;
+            }
+            x++;
+        }
+    }
+    private void rollButton() {
+        rollValue = rollSix();
+        if (playerNum % 2 == 0) {
+            playerOneScore += playerPointsWon();
+            playerOneUpdateScore.setText("Player 1's Score: " + playerOneScore);
+            whichPlayer.setText("Player 2");
+        } else {
+            playerTwoScore += playerPointsWon();
+            playerTwoUpdateScore.setText("Player 2's Score: " + playerTwoScore);
+            whichPlayer.setText("Player 1");
+        }
+        playerNum++;
+        compareValue = getRandomCompareValue();
+        compareValueText.setText(Integer.toString((int) compareValue));
+        if (playerOneScore >= 200 && playerTwoScore >= 200) {
+            if (playerOneScore > playerTwoScore) {
+                for (ImageView eachDie : diceArray) {
+                    eachDie.setVisibility(View.GONE);
+                }
+                winner.setImageResource(R.drawable.player1wins);
+                winner.setVisibility(View.VISIBLE);
+            } else {
+                for (ImageView eachDie : diceArray) {
+                    eachDie.setVisibility(View.GONE);
+                }
+                winner.setImageResource(R.drawable.player2wins);
+                winner.setVisibility(View.VISIBLE);
+            }
+        } else if (playerOneScore >= 200) {
+            for (ImageView eachDie : diceArray) {
+                eachDie.setVisibility(View.GONE);
+            }
+            winner.setImageResource(R.drawable.player1wins);
+            winner.setVisibility(View.VISIBLE);
+        } else if (playerTwoScore >= 200){
+            for (ImageView eachDie : diceArray) {
+                eachDie.setVisibility(View.GONE);
+            }
+            winner.setImageResource(R.drawable.player2wins);
+            winner.setVisibility(View.VISIBLE);
+        }
+        //onResume();
     }
 }
