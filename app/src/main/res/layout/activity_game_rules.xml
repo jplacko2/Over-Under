@@ -57,7 +57,7 @@
         android:layout_width="317dp"
         android:layout_height="53dp"
         android:layout_marginTop="20dp"
-        android:text='- The numer displayed next to "Your number is: " is the over/under for you to predict. This number ranges between 8 and 34'
+        android:text='- The number displayed next to "Your number is: " is the over/under for you to predict. This number ranges between 8 and 34'
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.326"
         app:layout_constraintStart_toStartOf="parent"
